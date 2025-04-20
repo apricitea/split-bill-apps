@@ -45,7 +45,7 @@ if uploaded_files:
     # 💳 Section: Total Bills Paid by Each Person
     st.subheader("💳 Total Bills Paid by Each Person")
     for name, amount in paid_amounts.items():
-        st.write(f"{name} – {int(amount):,}")
+        st.write(f"{name}: {int(amount):,}")
 
     debts = defaultdict(lambda: defaultdict(float))
     for _, row in df.iterrows():
@@ -64,7 +64,7 @@ if uploaded_files:
                 net_debts[creditor] -= amount
 
     result_df = pd.DataFrame([
-        {'From': debtor, 'Paid to': main_payer, 'Paid amount': round(amount, 2)}
+        {'From': debtor, 'Paid to': main_payer, 'Paid amount': f"{round(amount, 2):,.2f}"}
         for debtor, amount in net_debts.items()
         if debtor != main_payer and amount > 0.01
     ]).sort_values(by=['Paid to', 'From', 'Paid amount']).reset_index(drop=True)
