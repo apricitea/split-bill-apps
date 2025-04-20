@@ -15,6 +15,7 @@ user_input_names = st.text_input("Optional: Add unique names manually (separate 
 
 if uploaded_files:
     all_data = []
+    for uploaded_file in uploaded_files:
         df = pd.read_excel(uploaded_file)
         for _, row in df.iterrows():
             owned_by = str(row['owned_by'])
